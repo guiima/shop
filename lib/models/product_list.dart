@@ -40,7 +40,7 @@ class ProductList with ChangeNotifier {
 
   Future<void> addProduct(Product product) {
     final future = http.post(
-      Uri.parse('$_baseUrl/products.json'),
+      Uri.parse('$_baseUrl/products'),
       body: jsonEncode(
         {
           "name": product.name,
@@ -52,7 +52,7 @@ class ProductList with ChangeNotifier {
       ),
     );
 
-    return future.then((response) {
+    return future.then<void>((response) {
       final id = jsonDecode(response.body)['name'];
       _items.add(Product(
         id: id,
